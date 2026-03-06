@@ -166,8 +166,7 @@ class AsynScan():
         results = await asyncio.gather(*tasks)
         elapsed = time.monotonic() - start_time
 
-        tasks = [self.scan_port(p) for p in ports]
-        results = await asyncio.gather(*tasks)
+       
 
         open_ports = [r for r in results if r and r["state"] == "open"]
         print("─" * 60)
