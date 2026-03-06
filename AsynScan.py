@@ -32,15 +32,167 @@ panel = Panel(
 
 
 COMMON_PORTS = {
-    21: "FTP", 22: "SSH", 23: "Telnet", 25: "SMTP", 53: "DNS",
-    80: "HTTP", 110: "POP3", 111: "RPC", 135: "MSRPC", 139: "NetBIOS",
-    143: "IMAP", 443: "HTTPS", 445: "SMB", 465: "SMTPS", 587: "SMTP",
-    631: "IPP", 993: "IMAPS", 995: "POP3S", 1080: "SOCKS", 1433: "MSSQL",
-    1521: "Oracle", 2049: "NFS", 2181: "ZooKeeper", 3000: "Dev/Node",
-    3306: "MySQL", 3389: "RDP", 4444: "Metasploit", 5000: "Flask",
-    5432: "PostgreSQL", 5900: "VNC", 5985: "WinRM-HTTP", 5986: "WinRM-HTTPS",
-    6379: "Redis", 6443: "K8s API", 8080: "HTTP-Alt", 8443: "HTTPS-Alt",
-    8888: "Jupyter", 9200: "Elasticsearch", 9300: "Elasticsearch", 27017: "MongoDB",
+    20: "FTP-Data",
+    21: "FTP",
+    22: "SSH/SFTP",
+    115: "SFTP",
+    548: "AFP",
+    873: "Rsync",
+    2049: "NFS",
+
+    23: "Telnet",
+    830: "NETCONF-SSH",
+    831: "NETCONF-TLS",
+    3389: "RDP",
+    4899: "Radmin",
+    5900: "VNC",
+    5901: "VNC-1",
+    5902: "VNC-2",
+    5985: "WinRM-HTTP",
+    5986: "WinRM-HTTPS",
+
+    25:   "SMTP",
+    110:  "POP3",
+    143:  "IMAP",
+    465:  "SMTPS",
+    587:  "SMTP-Submission",
+    993:  "IMAPS",
+    995:  "POP3S",
+    2525: "SMTP-Alt",
+
+    80:   "HTTP",
+    443:  "HTTPS",
+    3000: "Dev/Node/Grafana",
+    4000: "Dev",
+    4200: "Angular-Dev",
+    5000: "Flask/Dev",
+    7000: "Dev",
+    8000: "HTTP-Dev",
+    8008: "HTTP-Alt",
+    8080: "HTTP-Alt",
+    8081: "HTTP-Alt2",
+    8082: "HTTP-Alt3",
+    8090: "HTTP-Alt4",
+    8443: "HTTPS-Alt",
+    8888: "Jupyter/HTTP-Alt",
+    9090: "Prometheus/HTTP-Alt",
+
+    53:  "DNS",
+    179: "BGP",
+    514: "Syslog",
+
+    88:    "Kerberos",
+    111:   "RPC",
+    135:   "MSRPC",
+    139:   "NetBIOS-SSN",
+    389:   "LDAP",
+    445:   "SMB",
+    464:   "Kerberos-KPW",
+    636:   "LDAPS",
+    3268:  "LDAP-GC",
+    3269:  "LDAPS-GC",
+    5722:  "DFSR",
+    49152: "WinRPC-Dynamic",
+
+    1433:  "MSSQL",
+    1434:  "MSSQL-Browser",
+    1521:  "Oracle",
+    1830:  "Oracle-Alt",
+    3306:  "MySQL",
+    5432:  "PostgreSQL",
+    5433:  "PostgreSQL-Alt",
+    5439:  "Redshift",
+    5984:  "CouchDB",
+    6379:  "Redis",
+    6380:  "Redis-TLS",
+    7474:  "Neo4j-HTTP",
+    7687:  "Neo4j-Bolt",
+    8086:  "InfluxDB",
+    8087:  "Riak",
+    9042:  "Cassandra",
+    9160:  "Cassandra-Thrift",
+    9200:  "Elasticsearch-HTTP",
+    9300:  "Elasticsearch-Transport",
+    26257: "CockroachDB",
+    27017: "MongoDB",
+    27018: "MongoDB-Shard",
+    27019: "MongoDB-Config",
+    28015: "RethinkDB",
+
+    1883:  "MQTT",
+    4369:  "RabbitMQ-EPMD",
+    5671:  "AMQPS",
+    5672:  "AMQP",
+    6650:  "Pulsar",
+    9092:  "Kafka",
+    9093:  "Kafka-TLS",
+    9094:  "Kafka-Alt",
+    61613: "ActiveMQ-STOMP",
+    61614: "ActiveMQ-STOMP-TLS",
+    61616: "ActiveMQ",
+
+    2181:  "ZooKeeper",
+    2375:  "Docker-HTTP",
+    2376:  "Docker-TLS",
+    2377:  "Docker-Swarm",
+    4001:  "etcd-Client",
+    4243:  "Docker-Alt",
+    6443:  "K8s-API",
+    8500:  "Consul-HTTP",
+    8501:  "Consul-HTTPS",
+    8600:  "Consul-DNS",
+    10250: "Kubelet-API",
+    10255: "Kubelet-ReadOnly",
+    10256: "Kube-Proxy",
+    10257: "Kube-Controller",
+    10259: "Kube-Scheduler",
+    2379:  "etcd-Client",
+    2380:  "etcd-Peer",
+
+    1080:  "SOCKS",
+    4444:  "Metasploit",
+    4445:  "Metasploit-Alt",
+    6666:  "IRC/Malware",
+    6667:  "IRC",
+    6668:  "IRC-Alt",
+    6669:  "IRC-Alt",
+    7777:  "Backdoor-Common",
+    8181:  "Malware-Alt",
+    31337: "Elite/Back-Orifice",
+
+    3100:  "Loki",
+    4317:  "OTLP-gRPC",
+    4318:  "OTLP-HTTP",
+    9091:  "Pushgateway",
+    9100:  "Node-Exporter",
+    9104:  "MySQL-Exporter",
+    9187:  "Postgres-Exporter",
+    9216:  "MongoDB-Exporter",
+    14268: "Jaeger-HTTP",
+    14250: "Jaeger-gRPC",
+    16686: "Jaeger-UI",
+    55680: "OpenTelemetry",
+
+    43:   "WHOIS",
+    79:   "Finger",
+    102:  "MMS/S7",
+    194:  "IRC",
+    220:  "IMAP3",
+    264:  "BGMP",
+    366:  "ODMR",
+    443:  "HTTPS",
+    631:  "IPP",
+    749:  "Kerberos-Admin",
+    902:  "VMware-Auth",
+    903:  "VMware-UI",
+    1194: "OpenVPN-TCP",
+    1723: "PPTP",
+    1812: "RADIUS-Auth",
+    1813: "RADIUS-Acct",
+    6000: "X11",
+    6001: "X11-1",
+    9418: "Git",
+    11211: "Memcached",
 }
 
 from rich.console import Console
@@ -73,7 +225,7 @@ class AsynScan():
             print(f"Failed to resolve {self.target}: {e}")
             sys.exit(1)
         except KeyboardInterrupt as e:
-            print("df")
+            print("exit....")
             sys.exit(1)
 
     async def grab_banner(self, port, reader: asyncio.StreamReader):
@@ -206,14 +358,14 @@ def parse_ports(port_str: str) -> list:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Fast async port scanner",
+        description="AsynScan Fast async port scanner",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python AsynScan.py 192.168.1.1
-  python AsynScan.py example.com -p 80,443,8080
-  python AsynScan.py 10.0.0.1 -p 1-1024 --timeout 2 -c 200
-  python AsynScan.py scanme.nmap.org --top100 -o results.json
+  python3 %(prog)s 192.168.1.1
+  python3 %(prog)s example.com -p 80,443,8080
+  python3 %(prog)s 10.0.0.1 -p 1-1024 --timeout 2 -c 200
+  python3 %(prog)s scanme.nmap.org --top100 -o results.json
         """
     )
     parser.add_argument("target", help="Target host or IP address")
@@ -229,7 +381,7 @@ Examples:
 
     args = parser.parse_args()
 
-    # Determine ports to scan
+    # figures ports to scan
     if args.full:
         ports = list(range(1, 65536))
     elif args.top1000:
