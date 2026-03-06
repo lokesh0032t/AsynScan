@@ -7,6 +7,7 @@ This is Python Asyncio AsynScan Port scanner
 import asyncio
 import socket
 import sys
+from datetime import datetime
 import argparse
 import time
 import json
@@ -43,7 +44,6 @@ COMMON_PORTS = {
 }
 
 from rich.console import Console
-from rich.table import Table
 
 ###########################################
 
@@ -166,11 +166,29 @@ class AsynScan():
         results = await asyncio.gather(*tasks)
         elapsed = time.monotonic() - start_time
 
-       
+
 
         open_ports = [r for r in results if r and r["state"] == "open"]
         print("─" * 60)
-        Console().print(f"  Open ports: [green]{len(open_ports)}[/green]/{len(ports)}")
+        # Console().print(f"  Open ports: [green]{len(open_ports)}[/green]/{len(ports)}")
+        self.results = {
+            "target": self.target,
+            "ip": self.resolved_ip,
+            "scan_time": round(elapsed, 2),
+            "total_ports": len(ports),
+            "open": open_ports,
+            "timestamp": datetime.now().isoformat(),
+        }
+
+        print("─" * 60)
+        print(f"  Scan complete in {elapsed:.2f}s")
+        print(f"  Open ports: {len(open_ports)}/{len(ports)}")
+        return self.results
+    def save_json(self, filename: str):
+        """Save results to JSON."""
+        with open(filename, 'w') as f:
+            json.dump(self.results, f, indent=2)
+        print(f"\n  [+] Results saved to {filename}")
 
 
 def parse_ports(port_str: str) -> list:
