@@ -24,10 +24,10 @@ panel = Panel(
     banner,
     title="[cyan]Port Scanner[/cyan]",
     subtitle="[magenta]Lokesh Bhati[/magenta]",
-    width=80,                 # Fixed width
-    box=box.ROUNDED,          # Border style
-    border_style="green",     # Border color
-    style="on blue"          # Background color
+    width=80,                 
+    box=box.ROUNDED,          
+    border_style="green",     
+    style="on blue"          
 )
 
 
@@ -212,9 +212,7 @@ class AsynScan():
         self.resolved_ip = None
 
     async def resolve_ip(self):
-        """
-            Convert Hostname to IP Address
-        """
+       
         try:
             loop = asyncio.get_event_loop()
             info = await loop.getaddrinfo(self.target, None, family=socket.AF_INET)
@@ -248,7 +246,6 @@ class AsynScan():
             return None
 
     async def scan_port(self, port: int):
-        """For Scan A single Port at a time """
         async with self.semaphore:
             result = {
                 "port": port,
@@ -295,7 +292,6 @@ class AsynScan():
             return result
 
     def print_result(self, result: dict):
-        """Print Port scan Result immediately as each port is scanned"""
         console = Console()
         state = result["state"]
         if state == 'open':
@@ -337,14 +333,12 @@ class AsynScan():
         print(f"  Open ports: {len(open_ports)}/{len(ports)}")
         return self.results
     def save_json(self, filename: str):
-        """Save results to JSON."""
         with open(filename, 'w') as f:
             json.dump(self.results, f, indent=2)
         print(f"\n  [+] Results saved to {filename}")
 
 
 def parse_ports(port_str: str) -> list:
-    """Parse port ranges like '80,443,1000-2000'."""
     ports = set()
     for part in port_str.split(','):
         part = part.strip()
@@ -381,7 +375,6 @@ Examples:
 
     args = parser.parse_args()
 
-    # figures ports to scan
     if args.full:
         ports = list(range(1, 65536))
     elif args.top1000:
@@ -391,7 +384,6 @@ Examples:
     elif args.ports:
         ports = parse_ports(args.ports)
     else:
-        # Default: common ports
         ports = sorted(COMMON_PORTS.keys())
 
     scanner = AsynScan(
