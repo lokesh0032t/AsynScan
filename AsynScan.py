@@ -226,7 +226,7 @@ class AsynScan():
             print("exit....")
             sys.exit(1)
 
-    async def grab_banner(self, port, reader: asyncio.StreamReader):
+    async def grab_banner(self, port, reader: asyncio.StreamReader,writer):
         try:
             probes = {
                 80: b"HEAD / HTTP/1.0\r\n\r\n",
@@ -236,7 +236,7 @@ class AsynScan():
             }
             probe = probes.get(port, b"\r\n")
             if probe:
-                reader._transport.write(probe)
+                writer.write(probe)
             data = await asyncio.wait_for(reader.read(1024), timeout=2.0)
             banner = data.decode('utf-8', errors='ignore').strip()
             banner = banner.replace('\n', ' ').replace('\r', '')[:80]
@@ -265,7 +265,7 @@ class AsynScan():
                 result["latency_ms"] = round(latency, 2)
 
                 if self.banner_grab:
-                    banner = await self.grab_banner(port, reader)
+                    banner = await self.grab_banner(port, reader,writer)
                     result["banner"] = banner
 
                 writer.close()
